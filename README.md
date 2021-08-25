@@ -1,1 +1,2 @@
-# Stock Search Website for CSCI 571 Angular project
+# Stock Search Website
+CSCI 571 Angular project
