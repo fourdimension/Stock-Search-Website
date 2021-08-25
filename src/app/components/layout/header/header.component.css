@@ -1,0 +1,14 @@
+.nav-item a:focus{
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color: #6f4ffb;
+    
+}
+.nav-item{
+    padding: 0px 10px;
+    border: 5px;
+}
+
+.nav-link{
+    padding: 1px;
+}

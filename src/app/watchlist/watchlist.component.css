@@ -1,0 +1,22 @@
+.alert-closebtn{
+    float:right;
+    line-height:15px;
+    cursor:pointer;
+    transition:0.3s;
+    cursor:pointer;
+    position:relative;
+    right:-15px;
+    top:-5px;
+}
+
+.stock-ticker{
+    font-size:18px;
+    font-weight:600;
+    float:left;
+    margin-bottom:0px;
+}
+
+.stock-name{
+    padding-top:5px;
+    font-weight:400;
+}

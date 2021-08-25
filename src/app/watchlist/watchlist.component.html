@@ -1,0 +1,41 @@
+<div class = "container" style = "width:80%">
+    <p class = "display-4 font-weight-normal" style = "display:inline-block;font-size:35px; padding:20px 0 0">My WatchList</p>
+   
+    <div #con  class = "container" *ngFor = "let stock of latestPriceList; index as i" style = "border:1px solid #f7f7f6; padding:10px 25px;margin:20px">
+        <span class="alert-closebtn" (click) = "CloseContainer(con,i)">&times;</span>
+        <div (click) ="routeToStock(i)" class = "row d-flex mt-2" style = "margin-right:0px;cursor:pointer">
+            <p class = "stock-ticker ">{{tickerList[i]}}</p>
+            <p *ngIf = "latestPriceList[i].last-latestPriceList[i].prevClose>0; else down_p" class = "ml-auto" style = "color: #0a8042;font-size:18px;font-weight:500">{{latestPriceList[i]?.last}}</p>
+            <ng-template #down_p>
+                <p *ngIf = "latestPriceList[i].prevClose-latestPriceList[i].last>0;else down_p2" class = "ml-auto" style = "color: red;font-size: 18px;font-weight:500">{{latestPriceList[i]?.last}}</p>
+                    <ng-template #down_p2>
+                        <p class = "ml-auto" style = "font-size: 18px;font-weight:500">{{latestPriceList[i]?.last}}</p>
+                    </ng-template>  
+            </ng-template>
+        </div>
+        <div (click) ="routeToStock(i)" class = "row" style = "padding-top:5px;cursor:pointer">
+            <p class = "stock-name float-left"style = "font-weight:500">{{nameList[i]}}</p>
+            <div class = "ml-auto mr-4" style = "margin-right:36px">
+                <div *ngIf = "latestPriceList[i].last-latestPriceList[i].prevClose>0; else downBlock" style = "color: #0a8042;padding-top:5px;font-weight: 500">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                    </svg>
+                    {{(latestPriceList[i]?.last-latestPriceList[i]?.prevClose).toFixed(2)}}({{((latestPriceList[i]?.last-latestPriceList[i]?.prevClose)*100/latestPriceList[i]?.prevClose).toFixed(2)}}%)
+                </div>
+                <ng-template #downBlock>
+                    <div  *ngIf = "latestPriceList[i].prevClose-latestPriceList[i].last>0;else downBlock2" style = "color:red;padding-top:5px;font-weight: 500">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                        {{(latestPriceList[i]?.last-latestPriceList[i]?.prevClose).toFixed(2)}}({{((latestPriceList[i]?.last-latestPriceList[i]?.prevClose)*100/latestPriceList[i]?.prevClose).toFixed(2)}}%)
+                    </div>
+                    <ng-template #downBlock2>
+                        <div style = "padding-top:5px;font-weight: 500">
+                            {{(latestPriceList[i]?.last-latestPriceList[i]?.prevClose).toFixed(2)}}({{((latestPriceList[i]?.last-latestPriceList[i]?.prevClose)*100/latestPriceList[i]?.prevClose).toFixed(2)}}%)
+                        </div>
+                    </ng-template>
+                </ng-template>  
+            </div>
+        </div>
+    </div>
+</div>

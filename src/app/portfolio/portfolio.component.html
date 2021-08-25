@@ -1,0 +1,135 @@
+<div class = "portfolio">
+    <p class = "display-4 font-weight-normal" style = "display:inline-block;font-size:35px; padding:20px 0 0">My Portofolio</p>
+
+    <p id = "NoneStock" style = "background-color:rgb(255, 242, 199);text-align:center;display:none">Currently you don't have any stock.</p>
+
+    <!--Modal: modalConfirmDelete-->
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+        
+        <!--Header-->
+        
+        <div class="modal-header d-flex">
+            <p class="heading text-left">{{TickerList[index]}}</p>
+            <span class="alert-closebtn" data-dismiss = "modal">&times;</span>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+            <p *ngIf = "index" class = "text-left">Current Price: {{latestPriceList[index]?.last}}</p>
+            <p class = "float-left mr-1 mt-2">Quantity </p>
+            <input #stockQuantity type="number" class="form-control rounded" style = "width:30%"
+            placeholder="0" matInput [formControl]='myControl'>
+        
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer flex-center">
+            <p class = "mr-auto">Total:{{totalValue}}</p>
+            <button id = "buy_sell_btn" (click)="Transaction()"  class="btn  btn-success float-right" data-dismiss = "modal">{{buy_sell_btn_text}}</button>
+        </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    </div>
+
+
+    <div  class = "stock-box" *ngFor = "let ticker of TickerList; index as i">
+        
+    
+            <!-- <div class = "stock-box-top"> -->
+            <div class = "container" style = "background-color: #f7f7f6;padding:1px 0px;margin-left:0px">    
+                <p class = "stock-ticker ml-3 mr-2">{{ticker}}</p>
+                <p class = "stock-name mt-1">{{buyList[ticker]?.name}}</p>   
+            </div>
+            <!-- <div class="container"> -->
+                <!-- <div class="row"> -->
+                    <div class="row d-flex" style ="padding-left:0px;padding-right:0px">
+                        <div class = "col-12 col-sm-6">
+                            <table class = "table table-borderless">
+                                <tr>
+                                    <th class = "th-left">Quantity:</th>
+                                    <th  class = "th-right">{{buyList[ticker]?.quantity}}</th>
+                                </tr>
+                                <tr>
+                                    <th class = "th-left">Avg. Cost/Share:</th>
+                                    <th  class = "th-right">{{(buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity).toFixed(2)}}</th>
+                                </tr>
+                                <tr>
+                                    <th class = "th-left">Total Cost:</th>
+                                    <th  class = "th-right">{{(buyList[ticker]?.cost*1.0).toFixed(2)}}</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class = "col-12 col-sm-6">
+                            <table class = "table table-borderless">
+                                <tr>
+                                    <th class = "th-left">Change:</th>
+                                    <th class = "th-right" *ngIf = "buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity-latestPriceList[i]?.last>0; else downBlock" style ="color:#0a8042">
+                                            
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill = "currentColor"  xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                        </svg>
+                                        {{(buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity-latestPriceList[i]?.last).toFixed(2)}}
+                                    </th>
+                                    <ng-template #downBlock>
+                                        <th class = "th-right" *ngIf = "(latestPriceList[i]?.last-buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity).toFixed(2)>0;else s_downBlock" style = "color:red">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill = "currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                            {{(buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity-latestPriceList[i]?.last).toFixed(2)}}
+                                        </th>
+                                        <ng-template #s_downBlock>
+                                            <th class = "th-right">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill = "currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                                </svg>
+                                                {{(buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity-latestPriceList[i]?.last).toFixed(2)}}
+                                            </th>
+                                        </ng-template>
+                                    </ng-template>
+                                   
+                                </tr>
+                                <tr>
+                                    <th class = "th-left">Current Price:</th>
+                                    <th class = "th-right" *ngIf = "buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity-latestPriceList[i]?.last>0;else down" style = "color:#0a8042">{{(latestPriceList[i]?.last).toFixed(2)}}</th>
+                                    <ng-template #down>
+                                        <th class = "th-right" *ngIf = "(latestPriceList[i]?.last-buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity).toFixed(2)>0;else down_2"  style = "color:red">{{(latestPriceList[i]?.last).toFixed(2)}}</th>
+                                        <ng-template #down_2>
+                                            <th class = "th-right"> {{(latestPriceList[i]?.last).toFixed(2)}}</th>
+                                        </ng-template>
+                                    </ng-template>
+                                </tr>
+                                <tr>
+                                    <th class = "th-left">Market Value:</th>
+                                    <th class = "th-right" *ngIf = "buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity-latestPriceList[i]?.last>0;else secondDown" style = "color:#0a8042">{{(latestPriceList[i]?.last*buyList[ticker]?.quantity).toFixed(2)}}</th>
+                                    <ng-template #secondDown>
+                                        <th class = "th-right" *ngIf = "(latestPriceList[i]?.last-buyList[ticker]?.cost*1.0/buyList[ticker]?.quantity).toFixed(2)>0;else secondDown_2"style = "color:red">{{(latestPriceList[i]?.last*buyList[ticker]?.quantity).toFixed(2)}}</th>
+                                        <ng-template #secondDown_2>
+                                            <th class = "th-right">{{(latestPriceList[i]?.last*buyList[ticker]?.quantity).toFixed(2)}}</th> 
+                                        </ng-template>
+                                    </ng-template>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            <!-- </div> -->
+            
+            
+            <div class = "button-block container" style = "padding-right:0px;">
+                <div class="row" style = "margin-right:0px;padding:5px 0px"> 
+                    <button type="button" (click) ="ChangeBtnText('Buy',i)" class="btn btn-primary btn-sm ml-auto" data-toggle="modal" data-target="#modalConfirmDelete">Buy</button>
+                    <button  type ="button" (click) ="ChangeBtnText('Sell',i)" class = "btn btn-danger btn-sm ml-2 mr-1" data-toggle="modal" data-target="#modalConfirmDelete">Sell</button>
+                </div>
+                
+            </div>
+
+
+
+
+    </div>
+</div>

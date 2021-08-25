@@ -1,0 +1,29 @@
+<div id = "title">
+    <h1 class="display-1 font-weight-bold text-center" style="padding-top:1.5em; font-size:60px">STOCK SEARCH</h1>  
+  </div>
+
+  <!-- <div class="input-group">
+    <input #searchInput type="text" class="form-control" style="border-top-right-radius: 20px;border-bottom-right-radius:20px;"
+    placeholder="Enter Stock name" matInput [formControl]='myControl' [matAutocomplete]='auto'>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions |async" [value]='option'>
+            {{option}}
+        </mat-option>
+    </mat-autocomplete>
+    <div class="input-group-prepend">
+      <button class="btn" (click)='getOptions(searchInput.value)'><i class="fa fa-search"></i></button>
+    </div>
+  </div> -->
+
+  <div class="input-group">
+    <input #searchInput type="text" class="form-control" style="border-top-right-radius: 20px;border-bottom-right-radius:20px;"
+    placeholder="Enter Stock name" matInput [formControl]='myControl' [matAutocomplete]='auto'>
+    <mat-autocomplete #auto="matAutocomplete" >
+        <mat-option *ngFor="let option of companyList" [value]="option.substring(0, option.indexOf('|'))">
+            {{option}}
+        </mat-option>
+    </mat-autocomplete>
+    <div class="input-group-prepend">
+      <button class="btn"><i [routerLink]="['details', searchInput.value]"  class="fa fa-search" ></i></button>
+    </div>
+  </div>

@@ -1,0 +1,22 @@
+div.fixed-bottom{
+    margin:auto;
+    background-color: #dddddd;
+    display:block;
+    text-align:center;
+}
+
+.fixed-bottom{
+    height:20px;
+    margin:auto;
+    background-color: #dddddd;
+    display:block;
+    text-align:center;
+}
+
+.footer{
+    height:20px;
+    margin:auto;
+    background-color: #dddddd;
+    display:block;
+    text-align:center;
+}

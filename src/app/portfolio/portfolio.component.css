@@ -1,0 +1,87 @@
+.portfolio{
+    width:80%;
+    margin:auto;
+}
+.stock-box{
+    margin:20px;
+    /* display:block; */
+    border:2px solid  #f7f7f6;
+    
+}
+.stock-box-top{
+    height:42px;
+    margin-top:20px;
+    background-color: #f7f7f6;
+    padding:7px 10px 0px;
+}
+
+.stock-ticker{
+    font-size:18px;
+    font-weight:600;
+    float:left;
+    margin-top:8px;
+    margin-bottom:0px;
+}
+
+.stock-name{
+    color:#848889;
+    padding-top:5px;
+    margin-bottom:4px;
+}
+
+/* .stock-price-left{
+    width:50%;
+    float:left;
+}
+.stock-price-right{
+    width:50%;
+    float:right;
+} */
+
+table{
+    /* display:block; */
+    margin-left:0px;
+    margin-bottom:0px;
+}
+th{
+    padding:0 10px;
+    font-weight:400;
+}
+
+.th-right{
+    float:right;
+
+}
+
+/* .stock-price-right .th-right{
+    color:red;
+} */
+
+.button-block .row{
+    background-color: #f7f7f6;
+    /* margin:0px;
+    padding:0px; */
+}
+
+.btn-sm{
+    padding:.15rem .3rem;
+    font-size:10px;
+    line-height:1;
+    border-radius:.2rem;
+}
+
+.buy-btn{
+    position:relative;
+    float:right;
+    right:120px;
+}
+
+.sell-btn{
+    position:relative;
+    float:right;
+    right:10px;
+}
+
+.alert-closebtn{
+    cursor:pointer;
+}

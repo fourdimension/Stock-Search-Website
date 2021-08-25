@@ -1,0 +1,304 @@
+<div id = "buy-success-alert" class = "top-alert" style = "background-color:#cdeedb;color:#799d86">
+    <span class="alert-closebtn" onclick="CloseContainer(this)">&times;</span>
+    <p>{{ticker}} bought successfully!</p>
+</div>
+
+<div id = "add-success-alert" class = "top-alert" style = "background-color: #cdeedb;color:#799d86">
+    <span class="alert-closebtn" onclick="CloseContainer(this)">&times;</span>
+    <p>{{ticker}} added to Watchlist</p>
+</div>
+
+<div id = "remove-success-alert" class = "top-alert" style ="background-color: #ffd4d4;">
+    <span class="alert-closebtn" onclick = "CloseContainer(this)">&times;</span>
+    <p>{{ticker}} removed from Watchlist</p>
+</div>
+
+
+<div class = "detail-top-container">
+
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-danger" role="document">
+            <!--Content-->
+            <div class="modal-content text-center">
+            
+            <!--Header-->
+            
+            <div class="modal-header d-flex">
+                <p class="heading text-left">{{ticker}}</p>
+                <span class="alert-closebtn" data-dismiss = "modal" >&times;</span>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <p class = "text-left">Current Price: {{latestPriceList?.last}}</p>
+                <p class = "float-left mr-1 mt-2">Quantity </p>
+                <input #stockQuantity type="number" class="form-control rounded" style = "width:30%"
+                placeholder="0" matInput [formControl]='myControl'>
+            
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer flex-center">
+                <p >Total:{{totalValue}}</p>
+                <button id = "buy-btn" (click) = "FinishBuyStockBtn()" class="btn  btn-success float-right" data-dismiss = "modal">Buy</button>
+            </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        </div>
+
+    <!-- <div class = "detail-top-left">
+    
+        <p class = "display-4 font-weight-normal" style = "display:inline-block;font-size:35px; padding:20px 0 0">{{ticker}}</p>
+        <div style="position:relative;display:inline-block">
+            <button (click) = "starClick()" style = "background-color:white;border:none; cursor:pointer;">
+                <div id = "icon" *ngIf = "!star_clicked; else fillBlock">
+                    <svg  style = "margin-top:-30px;margin-left:10px" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                    </svg>
+                </div>
+                <ng-template #fillBlock>
+                    <svg style = "margin-top:-30px;margin-left:10px;color:yellow" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                </ng-template>
+            </button>
+        </div>
+        
+        <p style = "color: #69747b; font-size: 25px">{{dailyList?.name}}</p>
+        <p style = "margin-bottom:5px">{{dailyList?.exchangeCode}}</p>
+        
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalConfirmDelete">buy</button>
+
+ 
+        
+
+    <div class = "detail-top-right">
+        <p class = "display-4 font-weight-normal" style = "display:inline-block;font-size:35px; padding:20px 0 0">{{latestPriceList?.last}}</p>
+        <div style = "font-size: 25px;padding-bottom:7px" >
+            <div *ngIf = "increase; else downBlock">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                </svg>
+                {{(latestPriceList?.last-latestPriceList?.prevClose).toFixed(2)}}({{((latestPriceList?.last-latestPriceList?.prevClose)*100/latestPriceList?.prevClose).toFixed(2)}}%)
+            </div>
+            <ng-template #downBlock>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+                {{(latestPriceList?.last-latestPriceList?.prevClose).toFixed(2)}}({{((latestPriceList?.last-latestPriceList?.prevClose)*100/latestPriceList?.prevClose).toFixed(2)}}%)
+            </ng-template>
+            
+        </div>
+        <p>{{curTime}}</p>
+
+    </div> -->
+
+    <!-- first row -->
+    <div class = "row">
+        <p class = "display-4 font-weight-normal">{{ticker}}</p>
+        <button (click) = "starClick()" style = "background-color:white;border:none; cursor:pointer;">
+            <div id = "icon" class = "" *ngIf = "!star_clicked; else fillBlock">
+                <svg  style = "margin-top:-30px;margin-left:10px" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-star" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                </svg>
+            </div>
+            <ng-template #fillBlock>
+                <svg style = "margin-top:-30px;margin-left:10px;color:yellow" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
+            </ng-template>
+        </button>
+        <p *ngIf = "increase; else block_1" class = "display-4 font-weight-normal ml-auto" style = "color:#0a8042">{{latestPriceList?.last}}</p>
+        <ng-template #block_1>
+            <p class = "display-4 font-weight-normal ml-auto"  style ="color:red">{{latestPriceList?.last}}</p>
+        </ng-template>
+    </div>
+
+    <!-- second row -->
+    <div class = "row" style = "font-size: 25px">
+        <p style = "color: #69747b">{{dailyList?.name}}</p>
+        <div *ngIf = "increase; else block_2" class = "ml-auto" style = "color:#0a8042">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+            {{(latestPriceList?.last-latestPriceList?.prevClose).toFixed(2)}}({{((latestPriceList?.last-latestPriceList?.prevClose)*100/latestPriceList?.prevClose).toFixed(2)}}%)
+            
+        </div>
+        <ng-template #block_2 class = "ml-auto" >
+            <div class = "ml-auto d-flex" style = "color:red">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                </svg>
+                <p class = "ml-auto">{{(latestPriceList?.last-latestPriceList?.prevClose).toFixed(2)}}({{((latestPriceList?.last-latestPriceList?.prevClose)*100/latestPriceList?.prevClose).toFixed(2)}}%)</p>
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- third row -->
+    <div class = "row">
+        <p class = "mr-auto">{{dailyList?.exchangeCode}}</p>
+        <p class = "ml-auto" *ngIf = "increase; else block_3" style = "color:#0a8042">{{curTime}}</p>
+        <ng-template #block_3>
+            <p class = "ml-auto" style = "color:red">{{curTime}}</p>
+        </ng-template>
+    </div>
+
+    <!-- button row -->
+    <div class ="row">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalConfirmDelete">buy</button>
+    </div>
+
+    <div class = "row">
+        <div class = "marketState" *ngIf = "openStatus; else closeMarket" >
+            <p style = "background-color:#cdeedb">Market is open</p>
+        </div>
+        <ng-template #closeMarket>
+            <div class = "marketState">
+                <span style = "background-color:#ffd4d4">Market closed on {{ClosedTime}}</span>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+
+
+
+
+
+    <my-tabs [ticker] = "ticker">
+        <my-tab [tabTitle]="'Summary'">
+        <div class = "row">
+            <div class = "col-12 col-sm-6">
+                <table class = "table table-borderless">
+                    <tr>
+                        <th>High Price:{{(latestPriceList?.high).toFixed(2)}}</th>
+                        <th class = "data_hidden">Mid Price: {{latestPriceList?.mid}}</th>
+                    </tr>
+                    <tr>
+                        <th>Low Price:{{(latestPriceList?.low).toFixed(2)}}</th>
+                        <th class = "data_hidden">Ask Price: {{latestPriceList?.askPrice}}</th>
+                    </tr>
+                    <tr>
+                        <th>Open Price:{{(latestPriceList?.open).toFixed(2)}}</th>
+                        <th class = "data_hidden">Ask Size: {{latestPriceList?.askSize}}</th>
+                    </tr>
+                    <tr>
+                        <th>Prev. Close:{{(latestPriceList?.prevClose).toFixed(2)}}</th>
+                        <th class = "data_hidden">Bid Price: {{latestPriceList?.bidPrice}}</th>
+                    </tr>
+                    <tr>
+                        <th>Volume:{{latestPriceList?.volume}}</th>
+                        <th class = "data_hidden">Bid Size: {{latestPriceList?.bidSize}}</th>
+                    </tr>
+                </table>
+                
+            
+                <p  class = "font-weight-bold" style = "text-align:center">Company's Description</p>
+                <p>Start Date: {{dailyList?.startDate}}</p>
+                <p>{{dailyList?.description}}</p>
+            </div>
+            <div id = "dailyChart" class = "col-12 col-sm-6">
+                <mat-card class="my-flex-mat-card">
+                    <highcharts-chart 
+                [Highcharts]="Highcharts" 
+                [constructorType]="'stockChart'" 
+                [options]="dailyChartOptions"
+                [(update)]="updateDailyFlag"
+                >
+                </highcharts-chart>
+                </mat-card>
+            </div>
+        </div>
+        </my-tab>
+        <my-tab tabTitle="Top News">
+        <div class = "row d-flex">
+            <div class = "col-12 col-sm-6 news-block" (click)="getNewsIndex(i)"  *ngFor = "let news of newsList; index as i" data-toggle="modal" data-target="#newsModal"  style = "cursor:pointer">
+                    <img src = {{news.urlToImage}} class = "photo">
+                    <div class = "news-text">
+                        <p>{{news.title}}</p>
+                    </div>
+            </div>
+        </div>
+        
+        </my-tab>
+        <my-tab tabTitle="Charts">
+            
+                <div id = "historyChart">
+                    <mat-card class="my-flex-mat-card">
+                        <highcharts-chart 
+                        [Highcharts]="Highcharts" 
+                        [constructorType]="'stockChart'" 
+                        [options]="historicalOptions"
+                        [(update)]="updateHistoryFlag"
+                        >
+                        </highcharts-chart>
+                    </mat-card>
+                </div>
+        
+        </my-tab>
+    </my-tabs>
+
+    <div class="modal fade" id="newsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-danger" role="document">
+        <!--Content-->
+        <div class="modal-content">
+        
+            <!--Header-->
+        
+            <div class="modal-header" style = "display:block">
+                <!-- <div class = "row"> -->
+                <span (click) = "CloseNewsBlock()" class="alert-closebtn" data-dismiss = "modal" >&times;</span>
+                <p class="heading" style = "font-size:x-large;font-weight:500">{{newsList[newsIdx]?.source.name}}</p>
+                
+                <!-- </div> -->
+                <!-- <div class = "row"> -->
+                <p style = "color:#8d8c89">{{newsTime}}</p>
+                <!-- </div> -->
+                
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <p style = "font-weight:500;font-size:larger">{{newsList[newsIdx]?.title}}</p>
+                <p style = "color:#5c5958;font-size:14px">{{newsList[newsIdx]?.description}}</p>
+                <p style = "color:#5c5958">For more details, click <a href = {{newsList[newsIdx]?.url}}>here</a></p>
+            </div>
+
+            <!--Footer-->
+            <div style = "padding:10px; border:2px solid #f7f7f6;margin:10px">
+                <p>share</p>
+                <div style = "display:flex;font-size:x-large">
+                    <a class="twitter-share-button"
+                        href="https://twitter.com/intent/tweet?text={{newsList[newsIdx]?.title}}%20{{newsList[newsIdx]?.url}}"
+                        data-size="large">
+                        <i class = "fa fa-twitter"></i>
+                    </a>
+                    
+                    <div style = "margin-left:5px" data-href="newsList[newsIdx]?.url" data-layout="button_count" data-size="small">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{newsList[newsIdx]?.url}}" class="fb-xfbml-parse-ignore"><i class = "fa fa-facebook-square"></i></a>
+                    </div>
+                </div>      
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+

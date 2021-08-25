@@ -1,0 +1,126 @@
+.detail-top-container{
+    width: 80%;
+    margin: auto;
+}
+
+div.detail-top-left{
+    
+    float:left;
+}
+
+*:focus{
+    outline:none;
+}
+
+div.detail-top-right{
+    float: right;
+    text-align: right;
+    color: #0a8042;
+}
+
+.detail-bottom{
+    width: 80%;
+    margin: auto;
+}
+
+.detail-bottom-container a{
+    border-bottom: 1px solid #eeedeb;
+    color:#b1ada8;
+}
+.detail-bottom-container a:focus{
+    border-bottom:2px solid #6f4ffb;
+    
+}
+
+.marketState{
+    margin:auto;
+    text-align: center;
+}
+
+/* .summary{
+    width:50%;
+    float:left;
+} */
+
+.summary th{
+    font-weight:normal;
+}
+
+.summary tr{
+    line-height: 1px;
+}
+
+.news{
+    width:96%;
+    margin:auto;
+}
+.news-block {
+    height:100px;
+    background-color: #fafaf9;
+    padding: 20px;
+    margin: 10px 0px;
+    font-size:13px
+}
+
+#newsModal p{
+    margin:0px 0px 0px;
+}
+
+
+.photo{ 
+    float:left;
+    position:relative;
+    width:90px;
+    height:60px;
+    bottom: 5px;
+}
+
+.news-text{
+    position: relative;
+    left: 16px;
+    display:flex
+}
+
+#historyChart{
+    width:96%;
+    margin: auto;
+}
+
+#dailyChart{
+    width:50%;
+    float:right;
+}
+
+.my-flex-mat-card {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+}  
+
+.buybox-popup{
+    display:none;
+    position:fixed;
+    z-index:9;
+}
+
+.buybox-ticker{
+    padding-bottom:5px;
+    border: 2px solid gray;
+}
+
+.top-alert{
+    display: none;
+    padding:6px;
+    height:30px;
+    width: 80%;
+    margin: 10px auto;
+    text-align:center;
+    font-size:13px;
+}
+
+.alert-closebtn{
+    float:right;
+    line-height:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
